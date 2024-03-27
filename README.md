@@ -42,6 +42,7 @@ Dynamically adjust axes and scales based on genre-specific ratings.
 Update the radar chart to reflect gender-based voting distributions within the selected genre.
 Customize radar lines and colors for different gender categories.
 Enable interactive features for exploring voting patterns.
+
 4. Domestic vs. Worldwide Box Office Earnings Stacked Bar Chart:
 Modify the stacked bar chart to show earnings for the chosen genre.
 Differentiate bar colors to represent domestic and worldwide earnings.
