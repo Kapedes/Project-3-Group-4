@@ -1,3 +1,102 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Dropdown Box with JSON Data</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+<div>
+    <label for="genre-select">Select Genre:</label>
+    <select id="genre-select"></select>
+</div>
+
+<script>
+    // Load JSON data
+    d3.json("static/js/output-theo.json").then(function(data) {
+        var genres = extractGenres(data); // Extracting unique genres from JSON data
+
+        // Populate dropdown with options
+        var dropdown = d3.select("#genre-select");
+
+        dropdown.selectAll("option")
+            .data(genres)
+            .enter()
+            .append("option")
+            .text(function(d) { return d; });
+
+        // Define event handler for selection change
+        dropdown.on("change", function() {
+            var selectedGenre = this.value;
+            // Call a function to update the visualization based on the selected genre
+            updateVisualization(selectedGenre);
+        });
+    });
+
+    // Function to extract unique genres from JSON data
+    function extractGenres(data) {
+        var genres = [];
+        data.forEach(function(d) {
+            if (!genres.includes(d.genre)) {
+                genres.push(d.genre);
+            }
+        });
+        return genres;
+    }
+
+    // Function to update visualization based on selected genre
+    function updateVisualization(selectedGenre) {
+        // Implement your visualization update logic here
+        console.log("Selected genre:", selectedGenre);
+        // For example, you can filter your data based on the selected genre and redraw your visualization
+    }
+</script>
+<div id="bubbleChartContainer1"></div>
+<div id="bubbleChartContainer2"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->
+
+
+
+
+
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -39,11 +138,7 @@
       <div class="col-md-12">
         <div id="bubble"></div>
 
-<!-- Placeholder div for the bubble chart -->
-<!-- <div id="bubbleChart1"></div> -->
 
-<!-- Placeholder div for the bubble chart -->
-<!-- <div id="bubbleChart2"></div> -->
 
 
 <div id="bubbleChartContainer1"></div>

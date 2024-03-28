@@ -73,14 +73,6 @@ d3.json('static/js/output.json').then(data => {
 
 
 
-
-
-
-// // Assume 'data' contains the loaded JSON data
-// const imdbData = data.imdb; // Extract IMDb data array
-// const earningData = data.earning; // Extract earning data array
-
-
 const imdbData = [
   {
     "Movie_id": "36809",
