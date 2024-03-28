@@ -1,3 +1,68 @@
+// let data; // Declare data variable in the global scope
+
+
+// console.log('Initialization');
+
+
+// d3.json('output.json').then(jsonData => {
+//     // Merge the data based on 'Movie_id'
+//     const imdbData = jsonData.IMDB;
+//     const earningData = jsonData.earning;
+//     const genreData = jsonData.genre;
+//     data = imdbData.map(imdbEntry => {
+//         const earningEntry = earningData.find(entry => entry.Movie_id === imdbEntry.Movie_id);
+//         const genreEntry = genreData.find(entry => entry.Movie_id === imdbEntry.Movie_id);
+//         return {
+//             ...imdbEntry,
+//             ...earningEntry,
+//             ...genreEntry
+//         };
+//     });
+//     // Log keys and arrays
+//     console.log("Keys: " + Object.keys(data[0]));
+//     console.log(data);
+//     // Initialize plots
+//     createBarChart(data);
+//     // Populate the dropdown with genres
+//     populateDropdown(data);
+//     // Display dataset info
+//     displayDatasetInfo(data);
+//     // Create the radar chart
+//     createRadarChart(data);
+// });
+// function populateDropdown(data) {
+//     var genres = [...new Set(data.map(d => d.genre))];
+//     var dropdown = d3.select("#selDataset");
+//     dropdown.selectAll("option")
+//         .data(genres)
+//         .enter()
+//         .append("option")
+//         .text(d => d)
+//         .attr("value", d => d);
+// }
+// function optionChanged(selectedGenre) {
+//     // Filter movies by genre
+//     var filteredData = data.filter(d => d.genre === selectedGenre);
+//     // Update the bar chart with filtered data
+//     updateBarChart(filteredData);
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 console.log('Initialization');
 
 d3.json('static/js/output.json').then(data => {
@@ -5,6 +70,9 @@ d3.json('static/js/output.json').then(data => {
     console.log("Keys: " + Object.keys(data));
     console.log(data);
 });
+
+
+
 
 
 
@@ -6922,6 +6990,18 @@ const earningData = [
 }
 ];
 
+
+
+
+
+
+
+
+
+
+
+
+
 // Extracting data for earnings, budget, and ratings using movie_id
 const earnings = [];
 const budgets = [];
@@ -7041,122 +7121,3 @@ plotBubbleChart2(budgets, ratings, earnings);
 
 
 
-
-
-
-
-
-
-
-
-const data2 = [
-  {
-    category: 'Male',
-    value: 8.1
-  },
-  {
-    category: 'Female',
-    value: 8.1
-  },
-  {
-      category: 'Under 18',
-      value: 8.4
-  },
-  {
-      category: 'Aged 45 and Above',
-      value: 7.8
-  },
-  {
-      category: 'Aged 18-29',
-      value: 8.2
-  },
-  {
-      category: 'Aged 30-44',
-      value: 8.0
-  }
-];
-
-const categories = data2.map(entry => entry.category);
-const values = data2.map(entry => entry.value);
-
-const trace = {
-type: 'scatterpolar',
-r: values,
-theta: categories,
-fill: 'toself'
-};
-
-const layout = {
-polar: {
-  radialaxis: {
-    visible: true,
-    range: [0, 10]
-  }
-},
-showlegend: false
-};
-
-Plotly.newPlot('radarChartContainer', [trace], layout);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Function to plot the second bubble chart using Plotly.js
-// function plotBubbleChart2(budgets, ratings, earnings) {
-//   const trace = {
-//     x: earnings,
-//     y: budgets,
-//     mode: 'markers',
-//     marker: {
-//       size: markerSizesEarnings, // Using earnings for marker sizes
-//       sizemode: 'diameter',
-//       sizeref: 50000,
-//       color: ratings,
-//       colorscale: 'Viridis',
-//       showscale: true
-//     },
-//     type: 'scatter',
-//     text: ratings.map((rating, index) => `<br>Title: ${titles[index]}<br>Rating: ${rating} out of 10 <br>Budget: $${budgets[index] / 1000000}m<br>Earnings:  $${Math.round(earnings[index] / 1000000)}m`)
-//   };
-
-//   const layout = {
-//     title: 'Budget vs Earnings (Bubble size: Earnings)',
-//     xaxis: {
-//       title: 'Earnings',
-//       range: [0, undefined]
-//     },
-//     yaxis: {
-//       title: 'Budget',
-//       range: [0, undefined]
-//     }
-//   };
-
-//   const data = [trace];
-
-//   Plotly.newPlot('bubbleChartContainer2', data, layout);
-// }
-
-// // Plot the second bubble chart after function definition
-// plotBubbleChart2(budgets, ratings, earnings);
