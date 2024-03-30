@@ -32,41 +32,41 @@ d3.json('static/js/output.json').then(jsonData => {
     displayDatasetInfo(data);
 
     // Create the radar chart
-    //createRadarChart(data);
+    createRadarChart(data);
 
     // Create the scatter-plot
-    createScatterPlot(data)
+    // createScatterPlot(data)
 
     // Create the scatter-plot
-    createScatterPlot2(data)
+    // createScatterPlot2(data)
 
     // Create the scatter-plot
-    createScatterPlot3(data)
+    // createScatterPlot3(data)
+
 });
 
+// // Get references to the dropdown menu and the background container
+// const genreDropdown = document.getElementById('selDataset');
+// const backgroundContainer = document.getElementById('backgroundContainer');
 
-// Get references to the dropdown menu and the background container
-const genreDropdown = document.getElementById('selDataset');
-const backgroundContainer = document.getElementById('backgroundContainer');
+// // Add an event listener to the dropdown menu
+// genreDropdown.addEventListener('change', function() {
+//     // Get the selected genre
+//     const selectedGenre = genreDropdown.value;
 
-// Add an event listener to the dropdown menu
-genreDropdown.addEventListener('change', function() {
-    // Get the selected genre
-    const selectedGenre = genreDropdown.value;
-
-    // Set the background image based on the selected genre
-    switch (selectedGenre.toLowerCase()) {
-        case 'animation':
-            backgroundContainer.style.backgroundImage = 'url("static/js/anime.jpg")';
-            break;
-        case 'adventure':
-            backgroundContainer.style.backgroundImage = 'url("static/js/LOTR3.jpg")';
-            break;
-        default:
-            // Set no background image for the default case
-            backgroundContainer.style.backgroundImage = 'none';
-    }
-});
+//     // Set the background image based on the selected genre
+//     switch (selectedGenre.toLowerCase()) {
+//         case 'animation':
+//             backgroundContainer.style.backgroundImage = 'url("static/js/anime.jpg")';
+//             break;
+//         case 'adventure':
+//             backgroundContainer.style.backgroundImage = 'url("static/js/LOTR3.jpg")';
+//             break;
+//         default:
+//             // Set no background image for the default case
+//             backgroundContainer.style.backgroundImage = 'none';
+//     }
+// });
 
 function populateDropdown(data) {
     var genres = ['All Genres',...new Set(data.map(d => d.genre))];
@@ -104,9 +104,10 @@ function optionChanged(selectedGenre) {
         displayDatasetInfo(data);
         // Plot all data
         //createBarChart(data);
-        createScatterPlot(data);
-        createScatterPlot2(data);
-        createScatterPlot3(data);
+        //createScatterPlot(data);
+        //createScatterPlot2(data);
+        //createScatterPlot3(data);
+        createRadarChart(data);
         // Add other plotting functions if needed
     } else {
         // Filter movies by genre
@@ -117,13 +118,13 @@ function optionChanged(selectedGenre) {
         // Update dataset info with filtered data
         displayDatasetInfo(filteredData);
         // Update the radar chart with filtered data
-        //updateRadarChart(filteredData);
+        updateRadarChart(filteredData);
         // Update scatter-plot 1 with filtered data
-        updateScatterPlot(filteredData);
+        // updateScatterPlot(filteredData);
         // Update scatter-plot 2 with filtered data
-        updateScatterPlot2(filteredData);
+        // updateScatterPlot2(filteredData);
         // Update scatter-plot 3 with filtered data
-        updateScatterPlot3(filteredData);
+        // updateScatterPlot3(filteredData);
     }
 }
 
@@ -142,7 +143,6 @@ function createScatterPlot(data){
                  color: 'rgba(50, 171, 96, 1.0)', // Adjust color and opacity of marker outline as needed
                  width: 1 // Adjust marker outline width as needed
              },
-             size: 10,
         },
         trendline: 'ols' // Ordinary Least Squares regression trendline
     };
@@ -187,7 +187,6 @@ function createScatterPlot2(data){
                  color: 'rgba(255, 0, 102, 1.0)', // Adjust color and opacity of marker outline as needed
                  width: 1 // Adjust marker outline width as needed
              },
-             size: 10,
         },
         trendline: 'ols' // Ordinary Least Squares regression trendline
     };
@@ -231,7 +230,6 @@ function createScatterPlot3(data){
                  color: 'orange', // Adjust color and opacity of marker outline as needed
                  width: 1 // Adjust marker outline width as needed
              },
-             size: 10,
         },
         trendline: 'ols' // Ordinary Least Squares regression trendline
     };
@@ -289,4 +287,91 @@ function updateBarChart(data) {
         x: [data.map(d => d.Title)],
         y: [data.map(d => d.Worldwide)]
     });
+}
+
+//_____________________________________________________________________________________________________________
+
+function createRadarChart(data) {
+    // Assuming data includes voting distributions for different genders
+    // Example data structure: [{ Title: 'Movie 1', Male: 60, Female: 40 }, { Title: 'Movie 2', Male: 45, Female: 55 }, ...]
+
+    // Define radar categories (e.g., voting criteria)
+    var categories = Object.keys(data[0]).filter(key => key !== 'Title');
+    console.log('Categories: ' + categories);
+
+    selectedCat = ['CVotesMale','CVotesFemale','CVotesU18M','CVotesU18F','CVotes1829M','CVotes1829F','CVotes3044M','CVotes3044F','CVotes45AM','CVotes45AF'];
+    selectedCat2 = ['VotesM','VotesF','VotesU18M','VotesU18F','Votes1829M','Votes1829F','Votes3044M','Votes3044F','Votes45AM','Votes45AF'];
+
+    categories = selectedCat2;
+    console.log('Categories: ' + categories);
+
+    // Initialize traces for each gender
+    var traces = [];
+
+    // Define colors for different genders
+    var colors = {
+        male: 'rgba(0, 102, 204, 0.7)',
+        female: 'rgba(255, 0, 102, 0.7)',
+        // Add more colors if needed for other genders
+    };
+
+    // Iterate over genders
+    Object.keys(colors).forEach(gender => {
+        var trace = {
+            type: 'scatterpolar',
+            name: gender, // Gender label
+            r: categories.map(category => data.map(d => d[category][gender])), // Radar values for the gender
+            theta: categories, // Radar categories
+            fill: 'toself', // Fill area inside radar lines
+            fillcolor: colors[gender], // Fill color
+            line: { color: colors[gender] }, // Radar line color
+        };
+        traces.push(trace);
+    });
+
+    // Define layout for radar chart
+    var layout = {
+        polar: {
+            radialaxis: { visible: true, range: [0, 100] } // Adjust range if needed
+        },
+        showlegend: true,
+        legend: { x: 0, y: 1 }, // Position legend
+        title: 'Gender-based Voting Distribution Radar Chart',
+        height: 600,
+        width: 800,
+    };
+
+    // Plot radar chart
+    Plotly.newPlot('radar-chart', traces, layout);
+}
+
+function updateRadarChart(data) {
+    // Assuming data includes voting distributions for different genders
+    // Example data structure: [{ Title: 'Movie 1', Male: 60, Female: 40 }, { Title: 'Movie 2', Male: 45, Female: 55 }, ...]
+
+    // Update radar categories (e.g., voting criteria)
+    var categories = Object.keys(data[0]).filter(key => key !== 'Title');
+
+    // Update traces for each gender
+    var traces = [];
+
+    // Define colors for different genders
+    var colors = {
+        male: 'rgba(0, 102, 204, 0.7)',
+        female: 'rgba(255, 0, 102, 0.7)',
+        // Add more colors if needed for other genders
+    };
+
+    // Iterate over genders
+    Object.keys(colors).forEach(gender => {
+        var trace = {
+            r: categories.map(category => data.map(d => d[category][gender])), // Radar values for the gender
+            fillcolor: colors[gender], // Fill color
+            line: { color: colors[gender] }, // Radar line color
+        };
+        traces.push(trace);
+    });
+
+    // Update radar chart
+    Plotly.restyle('radar-chart', traces);
 }
