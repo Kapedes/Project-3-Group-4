@@ -60,13 +60,35 @@ genreDropdown.addEventListener('change', function() {
             backgroundContainer.style.backgroundImage = 'url("static/js/anime.jpg")';
             break;
         case 'adventure':
-            backgroundContainer.style.backgroundImage = 'url("static/js/LOTR3.jpg")';
+            backgroundContainer.style.backgroundImage = 'url("static/js/LOTR.jpg")';
             break;
         default:
             // Set no background image for the default case
             backgroundContainer.style.backgroundImage = 'none';
     }
 });
+
+// // Function to play sound based on selected genre
+// function playSound() {
+//     var genre = document.getElementById("selDataset").value;
+//     var audioElement = new Audio();
+//     switch (genre) {
+//         case "animation":
+//             audioElement.src = "path_to_animation_sound.mp3";
+//             break;
+//         case "adventure":
+//             audioElement.src = "path_to_adventure_sound.mp3";
+//             break;
+//         // Add more cases for other genres if needed
+//         default:
+//             // No sound for unknown genres
+//             return;
+//     }
+//     audioElement.play();
+// }
+
+// Event listener for genre selection
+genreDropdown.addEventListener("change", playSound);
 
 function populateDropdown(data) {
     var genres = ['All Genres',...new Set(data.map(d => d.genre))];
@@ -290,3 +312,4 @@ function updateBarChart(data) {
         y: [data.map(d => d.Worldwide)]
     });
 }
+
