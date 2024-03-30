@@ -60,35 +60,13 @@ genreDropdown.addEventListener('change', function() {
             backgroundContainer.style.backgroundImage = 'url("static/js/anime.jpg")';
             break;
         case 'adventure':
-            backgroundContainer.style.backgroundImage = 'url("static/js/LOTR.jpg")';
+            backgroundContainer.style.backgroundImage = 'url("static/js/LOTR3.jpg")';
             break;
         default:
             // Set no background image for the default case
             backgroundContainer.style.backgroundImage = 'none';
     }
 });
-
-// // Function to play sound based on selected genre
-// function playSound() {
-//     var genre = document.getElementById("selDataset").value;
-//     var audioElement = new Audio();
-//     switch (genre) {
-//         case "animation":
-//             audioElement.src = "path_to_animation_sound.mp3";
-//             break;
-//         case "adventure":
-//             audioElement.src = "path_to_adventure_sound.mp3";
-//             break;
-//         // Add more cases for other genres if needed
-//         default:
-//             // No sound for unknown genres
-//             return;
-//     }
-//     audioElement.play();
-// }
-
-// Event listener for genre selection
-genreDropdown.addEventListener("change", playSound);
 
 function populateDropdown(data) {
     var genres = ['All Genres',...new Set(data.map(d => d.genre))];
@@ -157,7 +135,7 @@ function createScatterPlot(data){
         y: data.map(d => d.Worldwide),
         mode: 'markers',
         type: 'scatter',
-        text: data.map(d => `<br>Title: ${d.Title}<br>Domestic Earnings: $${d.Domestic}<br>Worldwide Earnings: $${d.Worldwide}`),
+        text: data.map(d => `<br>Title: ${d.Title}<br>Domestic Earnings: $${((d.Domestic)/1000000).toFixed(0)}m<br>Worldwide Earnings: $${((d.Worldwide)/1000000).toFixed(0)}m`),
         marker: {
              color: 'rgba(50, 171, 96, 0.6)', // Adjust color and opacity of markers as needed
              line: {
@@ -192,7 +170,7 @@ function updateScatterPlot(data) {
     Plotly.restyle('scatter-plot', {
         x: [data.map(d => d.Domestic)],
         y: [data.map(d => d.Worldwide)],
-        text: [data.map(d => `<br>Title: ${d.Title}<br>Domestic Earnings: $${d.Domestic}<br>Worldwide Earnings: $${d.Worldwide}`)],
+        text: [data.map(d => `<br>Title: ${d.Title}<br>Domestic Earnings: $${((d.Domestic)/1000000).toFixed(0)}m<br>Worldwide Earnings: $${((d.Worldwide)/1000000).toFixed(0)}m`)],
     });
 }
 
@@ -246,7 +224,7 @@ function createScatterPlot3(data){
         y: data.map(d => d.Worldwide),
         mode: 'markers',
         type: 'scatter',
-        text: data.map(d => `<br>Title: ${d.Title}<br>Metacritic: ${d.MetaCritic}<br>Worldwide Earning: $${d.Worldwide}`),
+        text: data.map(d => `<br>Title: ${d.Title}<br>Metacritic: ${d.MetaCritic}<br>Worldwide Earning: $${((d.Worldwide)/1000000).toFixed(0)}m`),
         marker: {
              color: 'yellow', // Adjust color and opacity of markers as needed
              line: {
@@ -280,7 +258,7 @@ function updateScatterPlot3(data) {
     Plotly.restyle('scatter-plot3', {
         x: [data.map(d => d.MetaCritic)],
         y: [data.map(d => d.Worldwide)],
-        text: [data.map(d => `<br>Title: ${d.Title}<br>Metacritic: ${d.MetaCritic}<br>Worldwide Earning: $${d.Worldwide}`)]
+        text: [data.map(d => `<br>Title: ${d.Title}<br>Metacritic: ${d.MetaCritic}<br>Worldwide Earning: $${((d.Worldwide)/1000000).toFixed(0)}m`)]
     });
 }
 
