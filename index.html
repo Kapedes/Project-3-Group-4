@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,12 +8,39 @@
   <title>Movie Explorer</title>                                                            
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-ols.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <style>
+    /* CSS to make the background container cover the whole page */
+    #backgroundContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      z-index: -1;
+      /* Add additional styling if needed */
+    }
+
+    /* CSS to style each plot container */
+    .plot-container {
+      margin-bottom: 20px; /* Add margin between plot containers */
+      /* Add additional styling if needed */
+    }
+
+    /* CSS to style the row containing the movie selector and plots */
+    #plots-row {
+      align-items: center; /* Align items vertically */
+    }  
+  </style>
 </head>
 
 <body>
-
-  <div class="container">
+   <!-- Create a div for the background container with id 'backgroundContainer' -->
+   <div id="backgroundContainer"></div>
+   
+   <div class="container">
     <div class="row">
       <div class="col-md-12 p-5 text-center bg-light">
         <h1>Movie Explorer Dashboard</h1>
@@ -28,27 +55,39 @@
         </div>
         <div class="card card-primary">
           <div class="card-header">
-            <h4 class="card-title">Dataset Info</h4>
+            <h4 class="card-title">Movie List in Genre</h4>
           </div>
-          <div id="sample-metadata" class="card-body"></div>
+          <div id="dataset-info" class="card-body"></div>
         </div>
       </div>
-      <div class="col-md-5">
-        <div id="scatter-plot"></div>
-      </div>
-      <div class="col-md-5">
-        <div id="gauge"></div>
+       <!-- Scatter plots in their own rows -->
+       <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="scatter-plot" class="plot-container"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="scatter-plot2" class="plot-container"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="scatter-plot3" class="plot-container"></div>
+          </div>
+        </div>
       </div>
     </div>
+    <!-- Row for other charts -->
     <div class="row">
       <div class="col-md-12">
-        <div id="bubble"></div>
+        <div id="bar" class="plot-container"></div>
+        <div id="gauge" class="plot-container"></div>
       </div>
     </div>
   </div>
-
   <script src="static/js/index.js"></script>
-
 </body>
 
 </html>

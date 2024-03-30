@@ -19,10 +19,11 @@ d3.json('static/js/output.json').then(jsonData => {
 
     // Log keys and arrays
     console.log("Keys: " + Object.keys(data[0]));
+    
     console.log(data);
 
     // Initialize plots
-    createBarChart(data);
+    // createBarChart(data);
 
     // Populate the dropdown with genres
     populateDropdown(data);
@@ -56,10 +57,10 @@ genreDropdown.addEventListener('change', function() {
     // Set the background image based on the selected genre
     switch (selectedGenre.toLowerCase()) {
         case 'animation':
-            backgroundContainer.style.backgroundImage = 'url("static/js/animation2.jpg")';
+            backgroundContainer.style.backgroundImage = 'url("static/js/anime.jpg")';
             break;
         case 'adventure':
-            backgroundContainer.style.backgroundImage = 'url("static/js/animation3.jpg")';
+            backgroundContainer.style.backgroundImage = 'url("static/js/LOTR3.jpg")';
             break;
         default:
             // Set no background image for the default case
@@ -68,9 +69,13 @@ genreDropdown.addEventListener('change', function() {
 });
 
 function populateDropdown(data) {
-    var genres = [...new Set(data.map(d => d.genre))];
-    console.log(genres);
+    var genres = ['All Genres',...new Set(data.map(d => d.genre))];
     var dropdown = d3.select("#selDataset");
+
+    //console.log(genres);
+
+    // Remove existing options
+    dropdown.selectAll("option").remove();
 
     dropdown.selectAll("option")
         .data(genres)
@@ -78,29 +83,6 @@ function populateDropdown(data) {
         .append("option")
         .text(d => d)
         .attr("value", d => d);
-}
-
-function optionChanged(selectedGenre) {
-    // Filter movies by genre
-    var filteredData = data.filter(d => d.genre === selectedGenre);
-
-    // Update the bar chart with filtered data
-    updateBarChart(filteredData);
-
-    // Update dataset info with filtered data
-    displayDatasetInfo(filteredData);
-
-    // Update the radar chart with filtered data
-    //updateRadarChart(filteredData);
-
-    // Update scatter-plot with filtered data
-    updateScatterPlot(filteredData);
-
-    // Update scatter-plot with filtered data
-    updateScatterPlot2(filteredData);
-
-    // Update scatter-plot with filtered data
-    updateScatterPlot3(filteredData);
 }
 
 function displayDatasetInfo(data) {
@@ -115,6 +97,37 @@ function displayDatasetInfo(data) {
                 .property("value", d.Title)     
     });
 }
+
+function optionChanged(selectedGenre) {
+
+    if (selectedGenre === 'All Genres') {
+        displayDatasetInfo(data);
+        // Plot all data
+        //createBarChart(data);
+        createScatterPlot(data);
+        createScatterPlot2(data);
+        createScatterPlot3(data);
+        // Add other plotting functions if needed
+    } else {
+        // Filter movies by genre
+        var filteredData = data.filter(d => d.genre === selectedGenre);
+
+        // Update the bar chart with filtered data
+        //updateBarChart(filteredData);
+        // Update dataset info with filtered data
+        displayDatasetInfo(filteredData);
+        // Update the radar chart with filtered data
+        //updateRadarChart(filteredData);
+        // Update scatter-plot 1 with filtered data
+        updateScatterPlot(filteredData);
+        // Update scatter-plot 2 with filtered data
+        updateScatterPlot2(filteredData);
+        // Update scatter-plot 3 with filtered data
+        updateScatterPlot3(filteredData);
+    }
+}
+
+//________________________________________________________________________________________________________________________
 
 function createScatterPlot(data){
     var trace = {
@@ -151,10 +164,12 @@ function createScatterPlot(data){
 };
 
 function updateScatterPlot(data) {
+
     // Update the data for the scatter-plot
     Plotly.restyle('scatter-plot', {
-        x: [data.map(d => d.Worldwide)],
-        y: [data.map(d => d.Domestic)]
+        x: [data.map(d => d.Domestic)],
+        y: [data.map(d => d.Worldwide)],
+        text: [data.map(d => `<br>Title: ${d.Title}<br>Domestic Earnings: $${d.Domestic}<br>Worldwide Earnings: $${d.Worldwide}`)],
     });
 }
 
@@ -196,34 +211,8 @@ function updateScatterPlot2(data) {
     // Update the data for the scatter-plot
     Plotly.restyle('scatter-plot2', {
         x: [data.map(d => parseFloat(d.VotesIMDB))],
-        y: [data.map(d => d.MetaCritic)]
-    });
-}
-
-function createBarChart(data) {
-    // Process the data and create the bar chart using Plotly
-    var trace = {
-        x: data.map(d => d.Title),
-        y: data.map(d => d.Worldwide),
-        type: 'bar'
-    };
-
-    var layout = {
-        title: 'Movie Earnings by Genre',
-        xaxis: { title: 'Movie' },
-        yaxis: { title: 'Earnings' },
-        width: 1200,  // Increase the width of the plot
-        height: 600  // Increase the height of the plot
-    };
-
-    Plotly.newPlot('bar', [trace], layout);
-}
-
-function updateBarChart(data) {
-    // Update the data for the bar chart
-    Plotly.restyle('bar', {
-        x: [data.map(d => d.Title)],
-        y: [data.map(d => d.Worldwide)]
+        y: [data.map(d => d.MetaCritic)],
+        text: [data.map(d => `<br>Title: ${d.Title}<br>IMDB Votes: ${parseFloat(d.VotesIMDB)}<br>Metacritic: ${d.MetaCritic}`)],
     });
 }
 
@@ -265,6 +254,36 @@ function updateScatterPlot3(data) {
     // Update the data for the scatter-plot
     Plotly.restyle('scatter-plot3', {
         x: [data.map(d => d.MetaCritic)],
+        y: [data.map(d => d.Worldwide)],
+        text: [data.map(d => `<br>Title: ${d.Title}<br>Metacritic: ${d.MetaCritic}<br>Worldwide Earning: $${d.Worldwide}`)]
+    });
+}
+
+//_________________________________________________________________________________________________________________________
+
+function createBarChart(data) {
+    // Process the data and create the bar chart using Plotly
+    var trace = {
+        x: data.map(d => d.Title),
+        y: data.map(d => d.Worldwide),
+        type: 'bar'
+    };
+
+    var layout = {
+        title: 'Movie Earnings by Genre',
+        xaxis: { title: 'Movie' },
+        yaxis: { title: 'Earnings' },
+        width: 1200,  // Increase the width of the plot
+        height: 600  // Increase the height of the plot
+    };
+
+    Plotly.newPlot('bar', [trace], layout);
+}
+
+function updateBarChart(data) {
+    // Update the data for the bar chart
+    Plotly.restyle('bar', {
+        x: [data.map(d => d.Title)],
         y: [data.map(d => d.Worldwide)]
     });
 }

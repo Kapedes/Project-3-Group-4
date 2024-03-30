@@ -27,6 +27,7 @@ d3.json('static/js/output.json').then(jsonData => {
 
     // Display dataset info
     displayDatasetInfo(data);
+    
     // Create the radar chart
     //createRadarChart(data);
 });
