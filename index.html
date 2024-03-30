@@ -22,6 +22,10 @@
           <h6>Select a Movie Genre:</h6>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
+        <div class="card card-body bg-light">
+          <h6>Select a Movie Title:</h6>
+          <select id="selMovieTitle" onchange="optionmovietitleschanged(this.value)"></select>
+        </div>
         <div class="card card-primary">
           <div class="card-header">
             <h4 class="card-title">Dataset Info</h4>
@@ -32,7 +36,8 @@
       </div>
       <div class="col-md-5">
         <div id="bar"></div>
-        <div id="radar"></div>
+        <div id="radar"></div> <!-- First radar chart -->
+        <div id="USRatings"></div> <!-- Second radar chart -->
       </div>
 
 <!--       
