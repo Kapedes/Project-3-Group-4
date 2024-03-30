@@ -65,19 +65,17 @@ function optionChanged(selectedGenre) {
     // Update dataset info with filtered data
     displayDatasetInfo(filteredData);
 
-    // Update the radar chart with filtered data
+    // Update the clustered column chart with filtered data
     updateClusteredColumn(filteredData);
 
-    // Update the radar chart with filtered data
+    // Update the bubble chart with filtered data
     updateBubbleChart(filteredData);
-
-    // Update the radar chart with filtered data
-    updateRadarChart(filteredData);
-
 
     // Update the Stacked bar chart with filtered data
     updateStackedBarChart(filteredData);
-
+    
+    // Update the bubble chart 2 chart with filtered data
+    updateBubbleChart2(filteredData);
 
 
 
@@ -178,7 +176,7 @@ function displayDatasetInfo(data) {
 
 
 //Theo's codes
-
+//______________________________________________________________________________________________________________________________
 
 // BUBBLE CHART 1
 
@@ -202,9 +200,9 @@ function createBubbleChart(data) {
     };
   
     const layout = {
-      title: 'Budget vs Earnings (Bubble size: Ratings)',
+      title: 'Budget vs Worldwide Earnings (Bubble size: Ratings)',
       xaxis: {
-        title: 'Earnings',
+        title: 'Worldwide Earnings',
         range: [0, undefined]
       },
       yaxis: {
@@ -224,7 +222,7 @@ function createBubbleChart(data) {
   function updateBubbleChart(data) {
     // Retrieve the current Plotly chart data
     var chart = document.getElementById('bubbleChartContainer1');
-    var chartData = chart.data[1]; // Assuming there's only one trace in the chart
+    var chartData = chart.data[1]; // two traces in the chart
 
     // Update the data for the scatter-plot
     Plotly.restyle('bubbleChartContainer1', {
@@ -243,7 +241,7 @@ function createBubbleChart(data) {
     });
 }
 
-
+//______________________________________________________________________________________________________________________________
 
 
   // BUBBLE CHART 2
@@ -275,13 +273,13 @@ function createBubbleChart(data) {
             showscale: false // hide the scale legend
         },
         type: 'scatter',
-        text: data.map((d, index) => `<br>Title: ${d.Title}<br>Rating: ${d.Rating} out of 10 <br>Domestic Earnings:  $${(d.Domestic / 1000000).toFixed(0)}m<br>Budget: $${(d.Budget / 1000000).toFixed(0)}m<br>`)
+        text: data.map((d, index) => `<br>Title: ${d.Title}<br>Rating: ${d.Rating} out of 10 <br>Genre: ${d.genre}<br>Domestic Earnings:  $${(d.Domestic / 1000000).toFixed(0)}m<br>Budget: $${(d.Budget / 1000000).toFixed(0)}m<br>`)
     };
 
     const layout = {
         title: 'Budget vs Domestic Earnings (Bubble size: Ratings)',
         xaxis: {
-            title: 'Earnings',
+            title: 'Domestic Earnings',
             range: [0, undefined]
         },
         yaxis: {
@@ -305,8 +303,53 @@ function createBubbleChart(data) {
     Plotly.newPlot('bubbleChartContainer2', [{}, trace, ...legendTraces], layout);
 }
 
+
 // Call the function to create the bubble chart
 createBubbleChart2(data);
+
+
+// - - - - --- - - --- -- - - -- - - - - -- - - - -- - -- - -- - - - - --
+
+
+
+
+function updateBubbleChart2(data) {
+    // Define colors for each genre
+    const genreColors = {
+        'Action': 'red',
+        'Biography': 'pink',
+        'Comedy': 'blue',
+        'Drama': 'green',
+        'Animation': 'violet',
+        'Crime': 'black',
+        'Mystery': 'yellow'
+        // Add more genres and colors as needed
+    };
+
+    // Calculate profit for each data point
+    const updatedTrace = {
+        x: [data.map(d => d.Domestic)],
+        y: [data.map(d => d.Budget)],
+        mode: 'markers',
+        marker: {
+            size: data.map(d => d.Rating * d.Rating * d.Rating * d.Rating * d.Rating * d.Rating * d.Rating), // Adjust the multiplier to control marker size
+            sizemode: 'diameter',
+            sizeref: 50000,
+            color: data.map(d => genreColors[d.genre]), // Assign color based on genre
+            colorscale: 'Viridis',
+            showscale: false // hide the scale legend
+        },
+        type: 'scatter',
+        text: [data.map((d, index) => `<br>Title: ${d.Title}<br>Rating: ${d.Rating} out of 10 <br>Genre: ${d.genre}<br>Domestic Earnings:  $${(d.Domestic / 1000000).toFixed(0)}m<br>Budget: $${(d.Budget / 1000000).toFixed(0)}m<br>`)]
+    };
+
+    // Update the data for the bubble chart
+    Plotly.restyle('bubbleChartContainer2', updatedTrace, 1); // Specify the index (1) to update the main trace
+}
+
+//______________________________________________________________________________________________________________________________
+
+
 
 
 function createStackedBarChart(data) {
@@ -348,23 +391,24 @@ function createStackedBarChart(data) {
     Plotly.newPlot('stackedBar', [trace1, trace2], layout);
 }
 
-function updateStackedBarChart(data) {
-    // Calculate percentages of domestic and worldwide earnings for each movie
-    data.forEach(d => {
-        const totalEarnings = d.Worldwide;
-        d.DomesticPercentage = (d.Domestic / totalEarnings) * 100;
-        d.NonUSPercentage = ((d.Worldwide - d.Domestic) / totalEarnings) * 100;
-    });
 
-    // Update the data for the stacked bar chart
+// - - - - --- - - --- -- - - -- - - - - -- - - - -- - -- - -- - - - - --
+
+function updateStackedBarChart(data) {
+    // Update the data for both traces in the stacked bar chart
     Plotly.restyle('stackedBar', {
-        y: [data.map(d => d.DomesticPercentage), data.map(d => d.NonUSPercentage)], // Update y values for both traces
-        text: [data.map(d => `<br>Title: ${d.Title}<br>Domestic Percentage: ${d.DomesticPercentage.toFixed(2)}%<br>Non-US Percentage: ${d.NonUSPercentage.toFixed(2)}%`)] // Update text for both traces
+        y: [
+            data.map(d => d.DomesticPercentage), // Update y values for the first trace (Domestic Earnings)
+            data.map(d => d.NonUSPercentage)      // Update y values for the second trace (Worldwide Earnings)
+        ],
+        text: [
+            data.map(d => `<br>Title: ${d.Title}<br>Domestic Percentage: ${d.DomesticPercentage.toFixed(2)}%`), // Update text for the first trace
+            data.map(d => `<br>Title: ${d.Title}<br>Non-US Percentage: ${d.NonUSPercentage.toFixed(2)}%`)      // Update text for the second trace
+        ]
     });
 }
 
-
-
+//______________________________________________________________________________________________
 
 
 
