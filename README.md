@@ -1,53 +1,46 @@
 # Project-3-Group-4
 
-Project Title: "Exploring Movie Data Analytics: Visualizing Ratings, Budgets, and Box Office Earnings"
+Group Members:
 
-I. Introduction
--------------------------------------------------
-Outline the project's goals and describe the dataset.
-Highlight the significance of analyzing movie data for understanding industry trends and audience preferences.
+Theo Demetrio
+Deldata Musa
+Karunadhipathi Abeyakoon
+Jun Yong
 
-II. Data Collection and Overview
--------------------------------------------------
-Detail the dataset's key features:
-1. Budget and Box Office Data
-2. Movie Genre and Ratings
-3. Critic and Voter Information
-4. Comprehensive Information with Movie IDs
+Overview:
+Our project, "Exploring Movie Data Analytics: Visualizing Ratings, Budgets, and Box Office Earnings," dives into the vast realm of movie data to uncover trends, preferences, and insights within the film industry. Through analysis of a comprehensive dataset sourced from Kaggle, we aim to visually represent movie ratings, budgets, box office earnings, and genre-related information. By incorporating interactive visualizations, we provide users with a dynamic platform to explore and understand various facets of the movie industry.
 
-III. Exploratory Data Analysis (EDA)
-------------------------------------------------
-1. Provide descriptive statistics on movie ratings, budgets, and box office earnings.
-2. Utilize JavaScript libraries like D3.js for visualizing rating trends.
-3. Analyze relationships between production budgets, box office earnings, and movie ratings.
-4. Explore the distribution of movie genres or types.
+Instructions:
+To interact with our project, simply access the provided HTML file via a web browser. Upon loading, you'll find a series of interactive visualizations showcasing different aspects of movie data analytics. Utilize dropdown menus, hover-over tooltips, and interactive features to explore trends, compare metrics, and gain insights into movie ratings, budgets, and box office earnings across different genres.
 
-IV. Interactive Dashboard Development
--------------------------------------------------
-Design interactive visualizations using Python (e.g., Plotly, Dash) and JavaScript (e.g., D3.js).
+Ethical Considerations:
+Throughout our project, ethical considerations, particularly regarding data privacy and representation, have been paramount. We've ensured that the dataset used is ethically sourced and adheres to guidelines. Additionally, we've strived to represent diverse perspectives within the movie industry, acknowledging the importance of inclusivity and fair representation in our analyses.
 
-Implement a Dropdown Box Selection: Genre Filter.
+Data Sources:
 
-1. Budget vs. Box Office Earnings Bubble Chart:
-Update the chart to display only movies of the selected genre.
-Adjust bubble sizes and colors based on movie ratings or popularity.
-Implement interactive tooltips for detailed movie information.
+Kaggle Dataset: Movie Data Analytics Dataset [https://www.kaggle.com/datasets/shahjhanalam/movie-data-analytics-dataset]
+SQLite Database File: [movie.sql]
 
-2. Metacritic vs. IMDb Ratings Scatter Plot:
-Filter the scatter plot to show only movies of the chosen genre.
-Utilize tooltips for displaying movie details upon hover.
-Dynamically adjust axes and scales based on genre-specific ratings.
+Code References:
 
-3. Gender-based Voting Radar Chart:
-Update the radar chart to reflect gender-based voting distributions within the selected genre.
-Customize radar lines and colors for different gender categories.
-Enable interactive features for exploring voting patterns.
+Python Scripts for Data Extraction and Manipulation: [main.ipynb]
+JavaScript for Data Analysis and Visualization: [static/js/index.js] and [index.html]
 
-4. Domestic vs. Worldwide Box Office Earnings Stacked Bar Chart:
-Modify the stacked bar chart to show earnings for the chosen genre.
-Differentiate bar colors to represent domestic and worldwide earnings.
-Utilize tooltips for displaying movie titles and earnings details.
+Visualizations:
+Our project features a range of interactive visualizations, including but not limited to:
 
-V. Conclusion
-----------------------------------------------------
-Summarize key findings and insights derived from the analysis.
+Budget vs. Box Office Earnings Bubble Chart
+Metacritic vs. IMDb Ratings Scatter Plot
+Voting Radar Chart
+Domestic vs. Worldwide Box Office Earnings Stacked Bar Chart
+
+These visualizations are tailored to provide insights into movie ratings, budgets, earnings, and genre-specific trends, enhancing understanding of the movie industry landscape.
+
+Conclusion:
+Through our exploration of movie data analytics, we've unearthed valuable insights into industry trends, audience preferences, and the economic landscape of filmmaking. Leveraging interactive visualizations, we've crafted a user-friendly platform for exploring and understanding various facets of the movie industry. We hope our project ignites curiosity and fosters deeper insights into the captivating world of movies.
+
+
+
+
+
+
