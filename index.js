@@ -1,3 +1,5 @@
+let data; // Declare data variable in the global scope
+
 console.log('Initialization');
 d3.json('output.json').then(jsonData => {
     // Merge the data based on 'Movie_id'
@@ -20,21 +22,30 @@ d3.json('output.json').then(jsonData => {
     console.log(data);
 
     // Initialize plots
-    createRadarChart(data);
+    createBarChart(data);
 
     // Populate the dropdown with genres
     populateDropdown(data);
 
+    // Populate the Dropdown with Movie Titles
+    populateMovieDropdown(data);
+
     // Display dataset info
     displayDatasetInfo(data);
+
+    // Create the radar chart
+    createRadarChart(data);
+
+    //Create US Ratings chart
+    createUSRatingsChart(data)
 });
 
 function populateDropdown(data) {
-    var titles = [...new Set(data.map(d => d.Titles))];
+    var genres = [...new Set(data.map(d => d.genre))];
     var dropdown = d3.select("#selDataset");
 
     dropdown.selectAll("option")
-        .data(titles)
+        .data(genres)
         .enter()
         .append("option")
         .text(d => d)
@@ -53,15 +64,22 @@ function populateMovieDropdown(data) {
         .attr("value",d => d);
 }
 
-function optionChanged(selectedTitle) {
-    // Filter movies by  Title 
-    var filteredData = data.filter(d => d.title === selectedTitle);
+
+function optionChanged(selectedGenre) {
+    // Filter movies by genre
+    var filteredData = data.filter(d => d.genre === selectedGenre);
+
+    // Update the bar chart with filtered data
+    updateBarChart(filteredData);
+
+    // Update dataset info with filtered data
+    displayDatasetInfo(filteredData);
 
     // Update the radar chart with filtered data
     updateRadarChart(filteredData);
+
+    // Update the radar Chart -US Ratings
     
-    // Update dataset info with filtered data
-    displayDatasetInfo(filteredData);
 }
 
 function optionmovietitleschanged(selectedTitle) {
@@ -204,3 +222,98 @@ function updateRadarChart(data) {
         r: [[maleVotes, femaleVotes], [under18Votes, age1829Votes, age3044Votes, age45AboveVotes]]
     });
 }
+
+function createUSRatingsChart(data) {
+    console.log("createUSRatingsChart")
+    
+    var cleanedData =data.map(d => ({
+        ...d,
+        VotesM: d.VotesM || 0,
+        VotesF :  d.VotesF   || 0,
+        VotesU18: d.VotesnU18   || 0,
+        Votes1829: d.Votes1829 || 0,
+        Votes3044 :  d.Votes3044   || 0,
+        Votes45A: d.Votes45A  || 0,
+
+
+ }));
+
+    console.log()
+    // Calculate the Value of  IMDB and US Based votes
+    var VotesM = cleanedData.reduce((sum, d) => sum + d.VotesM, 0) ;
+    var VotesF = cleanedData.reduce((sum, d) => sum + d.VotesF, 0) ;
+    var VotesU18 = cleanedData.reduce((sum, d) => sum + d.VotesU18, 0) ;
+    var Votes1829 = cleanedData.reduce((sum, d) => sum + d.Votes1829, 0) ;
+    var Votes3044 = cleanedData.reduce((sum, d) => sum + d.Votes3044, 0) ;
+    var Votes45A = cleanedData.reduce((sum, d) => sum + d.Votes45A, 0) ;
+
+
+    // Create the data traces for US Ratings Chart
+    var Trace = {
+        type: 'scatterpolar',
+        r: [VotesM,VotesF,VotesU18,Votes1829,Votes3044,Votes45A],
+        theta: ['Male','Female','Votes Under 18','Votes 18-29','Votes 30-44','Votes  Above 45'],
+        fill: 'toself',
+        name: 'Ratings',
+        marker: {
+            color: 'green',
+            opacity : 0.7
+        }
+
+    };
+
+    // Define the layout of Radar Chart  2
+
+    var layout = {
+        title: 'Ratings',
+        polar: {
+                radialaxis: {
+                    visible:true,
+                    range: [0,Math.max(VotesM,VotesF,VotesU18,Votes1829,Votes3044,Votes45A)]
+                }
+        },
+        showlegend: true
+    };
+
+    // Plot the radar Chart 2
+    Plotly.newPlot('USRatings', [Trace],layout);
+
+}
+
+  function updateUSRatingsChart (data) {
+    // Calculate the Value of  IMDB and US Based votes
+    var VotesM = cleanedData.reduce((sum, d) => sum + d.VotesM, 0) ;
+    var VotesF = cleanedData.reduce((sum, d) => sum + d.VotesF, 0) ;
+    var VotesU18 = cleanedData.reduce((sum, d) => sum + d.VotesU18, 0) ;
+    var Votes1829 = cleanedData.reduce((sum, d) => sum + d.Votes1829, 0) ;
+    var Votes3044 = cleanedData.reduce((sum, d) => sum + d.Votes3044, 0) ;
+    var Votes45A = cleanedData.reduce((sum, d) => sum + d.Votes45A, 0) ;
+
+
+
+    // Update the data in Radar chart 2
+    Plotly.restyle('USRatings', {
+            r: [[VotesM,VotesF,VotesU18,Votes1829,Votes3044,Votes45A]]
+    });
+
+    }
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
