@@ -33,8 +33,8 @@ SQLite Database File: [movie.sql]
 ## **Image Sources:**
 
 1. Cover photo: [https://protocol-online.net/wp-content/uploads/2022/02/Untitled-design323.jpg]
-2. Anime page: [https://images5.fanpop.com/image/photos/31800000/Anime-anime-31854380-1800-1192.jpg]
-2. Adventure page: [https://wallpapercave.com/wp/wp2770636.png]
+2. Anime photo: [https://images5.fanpop.com/image/photos/31800000/Anime-anime-31854380-1800-1192.jpg]
+2. Adventure photo: [https://wallpapercave.com/wp/wp2770636.png]
 4. Various screenshots
 
 ## **Visualizations:**
