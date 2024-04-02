@@ -28,7 +28,14 @@ SQLite Database File: [movie.sql]
 1. [main.ipynb] - Python for Data Extraction and Manipulation
 2. [index.js] - JavaScript for Data Analysis and Visualization
 3. [index.html] - HTML for Data Visualization
-4. [output.json] - JSON Dataset Extracted for Manipulation   
+4. [index-radar.html] - HTML for Data Visualization
+5. [index-scalar.html] - HTML for Data Visualization
+6. [output.json] - JSON Dataset Extracted for Manipulation   
+7. [Movie data analytics.ppt] - Power Point Presentation 
+
+## **Library not taught in clas**
+
+[https://cdn.jsdelivr.net/npm/regression/dist/regression.js]
 
 ## **Image Sources:**
 
