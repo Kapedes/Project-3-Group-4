@@ -1,5 +1,5 @@
 
-![alt text](images/movie_image.jpgmovie_image.jpg)
+![alt text](movie_image-1.jpg)
 
 # **Project 3**
 
@@ -42,16 +42,16 @@ SQLite Database File: [movie.sql]
 Our project features a range of interactive visualizations, including but not limited to:
 
 1. Budget vs. Box Office Earnings Bubble Chart
-![alt text](images/bubble.jpg)
+![alt text](bubble.jpg)
 
 2. Metacritic vs. IMDb Ratings Scatter Plot
-![alt text](images/scatter.jpg)
+![alt text](scatter.jpg)
 
 3. Voting Radar Chart
-![alt text](images/radar.jpg)
+![alt text](radar.jpg)
 
 4. Domestic vs. Worldwide Box Office Earnings Stacked Bar Chart
-![alt text](images/stackedbar.jpg)
+![alt text](stackedbar.jpg)
 
 These visualizations are tailored to provide insights into movie ratings, budgets, earnings, and genre-specific trends, enhancing understanding of the movie industry landscape.
 
