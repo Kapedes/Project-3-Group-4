@@ -1,5 +1,5 @@
 
-![alt text](movie_image-1.jpg)
+![alt text](movie_image.jpg)
 
 # **Project 3**
 
