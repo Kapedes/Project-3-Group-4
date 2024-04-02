@@ -9,6 +9,7 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-ols.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/regression/dist/regression.js"></script> <!-- Include the regression library -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <style>
     /* CSS to make the background container cover the whole page */
@@ -36,10 +37,22 @@
   </style>
 </head>
 
+<header>
+  <div class = 'unorder'>
+    <ul>
+      <li><a href=index.html>scalar plots</a></li>
+      <li><a href=index_radar.html>radar chart</a></li>
+    </ul>
+  </div>
+</header>
+
 <body>
+
    <!-- Create a div for the background container with id 'backgroundContainer' -->
    <div id="backgroundContainer"></div>
-   
+   <!-- Insert the audio element here -->
+   <audio id="audioPlayer" src="sound/LOTR_sound.mp3"></audio>
+   <audio id="audioPlayer" src="sound/anime_sound2.mp3"></audio>
    <div class="container">
     <div class="row">
       <div class="col-md-12 p-5 text-center bg-light">

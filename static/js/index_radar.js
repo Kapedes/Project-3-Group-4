@@ -64,5 +64,5 @@ function createRadarChart(data) {
     };
 
     // Plot radar chart
-    Plotly.newPlot('radar_chart', traces, layout);
+    Plotly.newPlot('radar-chart', traces, layout);
 }

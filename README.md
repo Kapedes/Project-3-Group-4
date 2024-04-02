@@ -37,6 +37,12 @@ SQLite Database File: [movie.sql]
 2. Adventure photo: [https://wallpapercave.com/wp/wp2770636.png]
 4. Various screenshots
 
+## **Music Sources:
+
+1. Adventure sound: [https://archive.org/details/TheLordOfTheRings_OST/TheLordOfTheRings_OST/Original_OST/1_The_Fellowship_of_the_Ring/18+-+May+It+Be.mp3]
+2. Anime sound: [https://ia600904.us.archive.org/31/items/tvtunes_15377/Sailor%20Moon%20-%20Moonlight%20Densetsu%20-%20Long.mp3]
+3. Anime sound: [https://ia800405.us.archive.org/6/items/07YomiNoSekaiShiToSeiNoAdaginTheWorldOf/Princess%20MONONOKE%20Soundtrack%20%5BMP3%5D/Princess%20MONONOKE%20Soundtrack%20%5BMP3%5D/32%20-%20Mononoke%20Hime%20%28Vocal%20Ending%29%20%28Princess%20Mononoke%20Theme%20Song%2C%20performed%20by%20Yosh....mp3]
+
 ## **Visualizations:**
 
 Our project features a range of interactive visualizations, including but not limited to:
